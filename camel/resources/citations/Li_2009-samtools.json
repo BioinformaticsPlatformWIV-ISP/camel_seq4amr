@@ -1,0 +1,25 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "The Sequence Alignment/Map format and SAMtools",
+  "first_authors": [
+    "Li, Heng",
+    "Handsaker, Bob",
+    "Wysoker, Alec",
+    "Fennell, Tim",
+    "Ruan, Jue",
+    "Homer, Nils",
+    "Marth, Gabor",
+    "Abecasis, Goncalo",
+    "Durbin, Richard"
+  ],
+  "publication_year": "2009///",
+  "alternate_title3": "Bioinformatics",
+  "volume": "25",
+  "number": "16",
+  "start_page": "2078",
+  "end_page": "2079",
+  "issn": "1367-4803\\r1460-2059",
+  "doi": "10.1093/bioinformatics/btp352",
+  "file_attachments1": "file:///D:/articles/btp352.pdf",
+  "abstract": "SUMMARY: The Sequence Alignment/Map (SAM) format is a generic alignment format for storing read alignments against reference sequences, supporting short and long reads (up to 128 Mbp) produced by different sequencing platforms. It is flexible in style, compact in size, efficient in random access and is the format in which alignments from the 1000 Genomes Project are released. SAMtools implements various utilities for post-processing alignments in the SAM format, such as indexing, variant caller and alignment viewer, and thus provides universal tools for processing read alignments. AVAILABILITY: http://samtools.sourceforge.net."
+}

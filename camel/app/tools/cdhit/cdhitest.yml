@@ -1,0 +1,5 @@
+dependencies: [CD-HIT/4.6.8]
+parameters:
+  identitiy_threshold: {default: true, mandatory: true, option: -c, value: '0.9'}
+  threads: {default: true, mandatory: true, option: -T, value: '8'}
+tool_command: cd-hit-est

@@ -1,0 +1,11 @@
+dependencies: [quast/4.4, python/3.5]
+parameters:
+  contig_thresholds: {default: false, mandatory: false, option: --contig-thresholds,
+    value: '0,1000'}
+  est_ref_size: {default: false, mandatory: false, option: --est-ref-size, value: '100000'}
+  labels: {default: false, mandatory: false, option: --labels, value: '"label, label,
+      ..."'}
+  min_contig: {default: false, mandatory: false, option: --min-contig, value: '500'}
+  scaffolds: {default: false, mandatory: false, option: --scaffolds, value: null}
+  threads: {default: true, mandatory: false, option: --threads, value: '8'}
+tool_command: quast.py

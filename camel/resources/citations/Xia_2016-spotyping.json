@@ -1,0 +1,21 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "SpoTyping: Fast and accurate in silico Mycobacterium spoligotyping from sequence reads",
+  "first_authors": [
+    "Xia, Eryu",
+    "Teo, Yik Ying",
+    "Ong, Rick Twee Hee"
+  ],
+  "publication_year": "2016///",
+  "publisher": "Genome Medicine",
+  "alternate_title3": "Genome Medicine",
+  "volume": "8",
+  "number": "1",
+  "start_page": "1",
+  "end_page": "9",
+  "issn": "1756-994X (Electronic)\\r1756-994X (Linking)",
+  "doi": "10.1186/s13073-016-0270-7",
+  "url": "http://dx.doi.org/10.1186/s13073-016-0270-7",
+  "file_attachments1": "file:///D:/articles/13073_2016_Article_270.pdf",
+  "abstract": "SpoTyping is a fast and accurate program for in silico spoligotyping of Mycobacterium tuberculosis isolates from next-generation sequencing reads. This novel method achieves high accuracy for reads of both uniform and varying lengths, and is about 20 to 40 times faster than SpolPred. SpoTyping also integrates the function of producing a report summarizing associated epidemiological data from a global database of all isolates having the same spoligotype. SpoTyping is freely available at: https://github.com/xiaeryu/SpoTyping-v2.0 ."
+}

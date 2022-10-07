@@ -1,0 +1,33 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Validation strategy of a bioinformatics whole genome sequencing workflow for Shiga Toxin-producing Escherichia coli using a reference collection extensively characterized with conventional methods",
+  "first_authors": [
+    "Bogaerts, Bert",
+    "Nouws, Stéphanie",
+    "Verhaegen, Bavo",
+    "Denayer, Sarah",
+    "Van Braekel, Julien",
+    "Winand, Raf",
+    "Fu, Qiang",
+    "Crombé, Florence",
+    "Piérard, Denis",
+    "Marchal, Kathleen",
+    "Roosens, Nancy H. C.",
+    "De Keersmaecker, Sigrid C. J.",
+    "Vanneste, Kevin"
+  ],
+  "publication_year": "2021/03//",
+  "keywords": [
+    "Escherichia coli",
+    "whole genome sequencing",
+    "STEC",
+    "foodborne pathogens",
+    "validation",
+    "public health"
+  ],
+  "alternate_title3": "Microbial Genomics",
+  "doi": "10.1099/mgen.0.000531",
+  "url": "https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000531",
+  "volume": "7",
+  "number": "3"
+}

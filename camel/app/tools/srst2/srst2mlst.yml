@@ -1,0 +1,20 @@
+dependencies: [samtools/0.1.18, srst2/0.2.0, bowtie2/2.2.4]
+parameters:
+  bowtie2_options: {default: false, mandatory: false, option: '--other "{}"', value: --minins
+      200 --maxins 2500}
+  delimiter: {default: true, mandatory: false, option: --mlst_delimiter, value: _}
+  limit_mapped_reads: {default: false, mandatory: false, option: --stop_after, value: null}
+  max_divergence: {default: false, mandatory: false, option: --max_divergence, value: '10'}
+  max_mismatch: {default: false, mandatory: false, option: --mlst_max_mismatch, value: '10'}
+  max_unaligned_overlap: {default: false, mandatory: false, option: --max_unaligned_overlap,
+    value: '10'}
+  min_coverage: {default: false, mandatory: false, option: --min_coverage, value: '90'}
+  min_depth: {default: false, mandatory: false, option: --min_depth, value: '5'}
+  min_edge_depth: {default: false, mandatory: false, option: --min_edge_depth, value: '2'}
+  output_filename: {default: true, mandatory: false, option: --output, value: srst2_out}
+  prob_seq_error: {default: false, mandatory: false, option: --prob_err, value: '0.01'}
+  report_consensus: {default: false, mandatory: false, option: --report_all_consensus,
+    value: null}
+  save_scores: {default: false, mandatory: false, option: --save_scores, value: null}
+  threads: {default: true, mandatory: true, option: --threads, value: '8'}
+tool_command: srst2

@@ -1,0 +1,5 @@
+dependencies: []
+parameters:
+  min_percent_identity: {default: true, mandatory: true, option: null, value: '90.0'}
+  min_percent_coverage: {default: true, mandatory: true, option: null, value: '60.0'}
+tool_command: null

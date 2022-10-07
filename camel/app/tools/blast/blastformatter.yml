@@ -1,0 +1,7 @@
+dependencies: [blast/2.6.0]
+parameters:
+  create_html: {default: false, mandatory: false, option: -html, value: null}
+  num_alignments: {default: false, mandatory: false, option: -num_alignments, value: '500'}
+  output_filename: {default: false, mandatory: false, option: -out, value: blast_out_tabular.txt}
+  output_format: {default: true, mandatory: false, option: -outfmt, value: '8'}
+tool_command: blast_formatter

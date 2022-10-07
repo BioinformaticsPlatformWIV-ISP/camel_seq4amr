@@ -1,0 +1,31 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "SNP-IT tool for identifying subspecies and associated lineages of Mycobacterium tuberculosis complex",
+  "first_authors": [
+    "Lipworth, Samuel",
+    "Jajou, Rana",
+    "De Neeling, Albert",
+    "Bradley, Phelim",
+    "Van Der Hoek, Wim",
+    "Maphalala, Gugu",
+    "Bonnet, Maryline",
+    "Sanchez-Padilla, Elizabeth",
+    "Diel, Roland",
+    "Niemann, Stefan",
+    "Iqbal, Zamin",
+    "Smith, Grace",
+    "Peto, Tim",
+    "Crook, Derrick",
+    "Walker, Timothy",
+    "Van Soolingen, Dick"
+  ],
+  "publication_year": "2019///",
+  "alternate_title3": "Emerging Infectious Diseases",
+  "volume": "25",
+  "number": "3",
+  "start_page": "482",
+  "end_page": "488",
+  "doi": "10.3201/eid2503.180894",
+  "file_attachments1": "file:///D:/articles/18-0894.pdf",
+  "abstract": "The clinical phenotype of zoonotic tuberculosis and its contribution to the global burden of disease are poorly understood and probably underestimated. This shortcoming is partly because of the inability of currently available laboratory and in silico tools to accurately identify all subspecies of the Mycobacterium tuberculosis complex (MTBC). We present SNPs to Identify TB (SNP-IT), a single-nucleotide polymorphism-based tool to identify all members of MTBC, including animal clades. By applying SNP-IT to a collection of clinical genomes from a UK reference laboratory, we detected an unexpectedly high number of M. orygis isolates. M. orygis is seen at a similar rate to M. bovis, yet M. orygis cases have not been previously described in the United Kingdom. From an international perspective, it is possible that M. orygis is an underestimated zoonosis. Accurate identification will enable study of the clinical phenotype, host range, and transmission mechanisms of all subspecies of MTBC in greater detail."
+}

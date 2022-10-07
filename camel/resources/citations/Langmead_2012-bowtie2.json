@@ -1,0 +1,19 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Fast gapped-read alignment with Bowtie 2",
+  "first_authors": [
+    "Langmead, Ben",
+    "Salzberg, Steven L."
+  ],
+  "publication_year": "2012///",
+  "alternate_title3": "Nature Methods",
+  "volume": "9",
+  "number": "4",
+  "start_page": "357",
+  "end_page": "359",
+  "issn": "1548-7105 (Electronic) 1548-7091 (Linking)",
+  "doi": "10.1038/nmeth.1923",
+  "url": "http://www.ncbi.nlm.nih.gov/pubmed/22388286%0Ahttp://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC3322381",
+  "file_attachments1": "file:///C:/Users/BeBo1045/Downloads/nmeth.1923.pdf",
+  "abstract": "As the rate of sequencing increases, greater throughput is demanded from read aligners. The full-text minute index is often used to make alignment very fast and memory-efficient, but the approach is ill-suited to finding longer, gapped alignments. Bowtie 2 combines the strengths of the full-text minute index with the flexibility and speed of hardware-accelerated dynamic programming algorithms to achieve a combination of high speed, sensitivity and accuracy. \u00a9 2012 Nature America, Inc. All rights reserved."
+}

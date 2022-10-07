@@ -1,0 +1,32 @@
+{
+  "seq_0": {
+    "allele": "bla_NG_047482.1",
+    "header_orig": "bla_NG_047482.1",
+    "cluster": "Cluster_3"
+  },
+  "seq_1": {
+    "allele": "bla_NG_047487.1",
+    "header_orig": "bla_NG_047487.1",
+    "cluster": "Cluster_2"
+  },
+  "seq_2": {
+    "allele": "emrC_AAAIJS010000026.1",
+    "header_orig": "emrC_AAAIJS010000026.1",
+    "cluster": "Cluster_5"
+  },
+  "seq_3": {
+    "allele": "mcr-9.2_JAGFWX010000027.1",
+    "header_orig": "mcr-9.2_JAGFWX010000027.1",
+    "cluster": "Cluster_0"
+  },
+  "seq_4": {
+    "allele": "satA_AL009126.3",
+    "header_orig": "satA_AL009126.3",
+    "cluster": "Cluster_1"
+  },
+  "seq_5": {
+    "allele": "satA_NG_064661.1",
+    "header_orig": "satA_NG_064661.1",
+    "cluster": "Cluster_4"
+  }
+}

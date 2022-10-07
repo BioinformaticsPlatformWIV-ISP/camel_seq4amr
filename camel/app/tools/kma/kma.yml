@@ -1,0 +1,6 @@
+dependencies: [kma/1.2.25]
+parameters:
+  output_basename: {default: true, mandatory: true, option: -o, value: kma_output}
+  bc_nano: {default: false, mandatory: false, option: -bcNano, value: null}
+  basecalls: {default: false, mandatory: false, option: -bc, value: 0.9}
+tool_command: kma

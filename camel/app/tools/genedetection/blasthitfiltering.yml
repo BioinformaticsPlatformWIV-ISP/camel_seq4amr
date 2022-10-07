@@ -1,0 +1,8 @@
+dependencies: []
+parameters:
+  filtering_method: {default: true, mandatory: false, option: null, value: cluster}
+  min_coverage: {default: true, mandatory: true, option: null, value: '60'}
+  min_percent_identity: {default: true, mandatory: true, option: null, value: '90'}
+  output_filename: {default: true, mandatory: true, option: null, value: filtered_hits.tsv}
+  score_nb_of_hits: {default: true, mandatory: false, option: null, value: '5'}
+tool_command: null

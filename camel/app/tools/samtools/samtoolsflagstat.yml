@@ -1,0 +1,4 @@
+dependencies: [samtools/1.9]
+parameters:
+  output_filename: {default: true, mandatory: true, option: null, p_index: 0, value: samtools_flagstat.txt}
+tool_command: samtools flagstat

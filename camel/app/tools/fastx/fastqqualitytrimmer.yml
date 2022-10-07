@@ -1,0 +1,7 @@
+dependencies: [fastx-toolkit/0.0.13]
+parameters:
+  minimum_length: {default: true, mandatory: true, option: -l, value: '50'}
+  output_filename: {default: true, mandatory: true, option: '', value: fastx_trimmed.fastq}
+  quality_treshold: {default: true, mandatory: true, option: -t, value: '1'}
+  q33: {default: true, mandatory: false, option: -Q33, value: ''}
+tool_command: fastq_quality_trimmer

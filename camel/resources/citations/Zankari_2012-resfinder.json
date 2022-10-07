@@ -1,0 +1,33 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Identification of acquired antimicrobial resistance genes",
+  "first_authors": [
+    "Zankari, Ea",
+    "Hasman, Henrik",
+    "Cosentino, Salvatore",
+    "Vestergaard, Martin",
+    "Rasmussen, Simon",
+    "Lund, Ole",
+    "Aarestrup, Frank M.",
+    "Larsen, Mette Voldby"
+  ],
+  "publication_year": "2012///",
+  "keywords": [
+    "Antibiotic resistance",
+    "Genotype",
+    "ResFinder",
+    "Resistance gene identification",
+    "antibiotic resistance",
+    "genotype",
+    "resistance gene identification"
+  ],
+  "alternate_title3": "Journal of Antimicrobial Chemotherapy",
+  "volume": "67",
+  "number": "11",
+  "start_page": "2640",
+  "end_page": "2644",
+  "issn": "1460-2091 (Electronic)\\r0305-7453 (Linking)",
+  "doi": "10.1093/jac/dks261",
+  "file_attachments1": "file:///D:/articles/Zankari et al. - Unknown - Identification of acquired antimicrobial resistance genes.pdf",
+  "abstract": "OBJECTIVES Identification of antimicrobial resistance genes is important for understanding the underlying mechanisms and the epidemiology of antimicrobial resistance. As the costs of whole-genome sequencing (WGS) continue to decline, it becomes increasingly available in routine diagnostic laboratories and is anticipated to substitute traditional methods for resistance gene identification. Thus, the current challenge is to extract the relevant information from the large amount of generated data. METHODS We developed a web-based method, ResFinder that uses BLAST for identification of acquired antimicrobial resistance genes in whole-genome data. As input, the method can use both pre-assembled, complete or partial genomes, and short sequence reads from four different sequencing platforms. The method was evaluated on 1862 GenBank files containing 1411 different resistance genes, as well as on 23 de-novo-sequenced isolates. RESULTS When testing the 1862 GenBank files, the method identified the resistance genes with an ID = 100% (100% identity) to the genes in ResFinder. Agreement between in silico predictions and phenotypic testing was found when the method was further tested on 23 isolates of five different bacterial species, with available phenotypes. Furthermore, ResFinder was evaluated on WGS chromosomes and plasmids of 30 isolates. Seven of these isolates were annotated to have antimicrobial resistance, and in all cases, annotations were compatible with the ResFinder results. CONCLUSIONS A web server providing a convenient way of identifying acquired antimicrobial resistance genes in completely sequenced isolates was created. ResFinder can be accessed at www.genomicepidemiology.org. ResFinder will continuously be updated as new resistance genes are identified."
+}

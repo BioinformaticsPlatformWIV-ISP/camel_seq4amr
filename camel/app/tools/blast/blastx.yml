@@ -1,0 +1,12 @@
+dependencies: [blast/2.6.0]
+parameters:
+  evalue: {default: false, mandatory: false, option: -evalue, value: '10'}
+  gapextend: {default: false, mandatory: false, option: -gapextend, value: '5'}
+  gapopen: {default: false, mandatory: false, option: -gapopen, value: '10'}
+  output_filename: {default: false, mandatory: false, option: -out, value: blastx_out.asn}
+  output_format: {default: true, mandatory: true, option: -outfmt, value: '11'}
+  seg: {default: false, mandatory: false, option: -seg, value: 'yes'}
+  threads: {default: true, mandatory: false, option: -num_threads, value: '8'}
+  ungapped: {default: false, mandatory: false, option: -ungapped, value: null}
+  word_size: {default: false, mandatory: false, option: -word_size, value: '5'}
+tool_command: blastx

@@ -1,0 +1,18 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Web-accessible database of hsp65 sequences from Mycobacterium reference strains",
+  "first_authors": [
+    "Dai, Jianli",
+    "Chen, Yuansha",
+    "Lauzardo, Michael"
+  ],
+  "publication_year": "2011///",
+  "alternate_title3": "Journal of Clinical Microbiology",
+  "volume": "49",
+  "number": "6",
+  "start_page": "2296",
+  "end_page": "2303",
+  "doi": "10.1128/JCM.02602-10",
+  "file_attachments1": "file:///D:/articles/zjm2296.pdf",
+  "abstract": "Mycobacteria include a large number of pathogens. Identification to species level is important for diagnoses and treatments. Here, we report the development of a Web-accessible database of the hsp65 locus sequences (http://msis.mycobacteria.info) from 149 out of 150 Mycobacterium species/subspecies. This database can serve as a reference for identifying Mycobacterium species."
+}

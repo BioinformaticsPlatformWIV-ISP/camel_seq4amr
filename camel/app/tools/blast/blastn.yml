@@ -1,0 +1,22 @@
+dependencies: [blast/2.6.0]
+parameters:
+  culling_limit: {default: false, mandatory: false, option: -culling_limit, value: '1'}
+  dust: {default: false, mandatory: false, option: -dust, value: 'no'}
+  evalue: {default: false, mandatory: false, option: -evalue, value: '10'}
+  gapextend: {default: false, mandatory: false, option: -gapextend, value: '5'}
+  gapopen: {default: false, mandatory: false, option: -gapopen, value: '10'}
+  match_reward: {default: false, mandatory: false, option: -reward, value: '3'}
+  max_hsps: {default: false, mandatory: false, option: -max_hsps, value: '0'}
+  max_target_seqs: {default: false, mandatory: false, option: -max_target_seqs, value: '1'}
+  mismatch_penalty: {default: false, mandatory: false, option: -penalty, value: '-3'}
+  num_alignments: {default: false, mandatory: false, option: -num_alignments, value: '250'}
+  output_filename: {default: false, mandatory: false, option: -out, value: blastn_out.asn}
+  output_format: {default: true, mandatory: true, option: -outfmt, value: '11'}
+  percent_identity: {default: false, mandatory: false, option: -perc_identity, value: '50'}
+  qcov_hsp_perc: {default: false, mandatory: false, option: -qcov_hsp_perc, value: '85'}
+  task: {default: false, mandatory: false, option: -task, value: megablast}
+  threads: {default: true, mandatory: false, option: -num_threads, value: '8'}
+  ungapped: {default: false, mandatory: false, option: -ungapped, value: null}
+  use_megablast: {default: false, mandatory: false, option: -task megablast, value: null}
+  word_size: {default: false, mandatory: false, option: -word_size, value: '5'}
+tool_command: blastn

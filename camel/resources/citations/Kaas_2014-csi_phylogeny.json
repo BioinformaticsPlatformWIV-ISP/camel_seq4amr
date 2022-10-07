@@ -1,0 +1,20 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Solving the problem of comparing whole bacterial genomes across different sequencing platforms",
+  "first_authors": [
+    "Kaas, Rolf S.",
+    "Leekitcharoenphon, Pimlapas",
+    "Aarestrup, Frank M.",
+    "Lund, Ole"
+  ],
+  "publication_year": "2014///",
+  "alternate_title3": "PLoS ONE",
+  "volume": "9",
+  "number": "8",
+  "start_page": "1",
+  "end_page": "8",
+  "issn": "1932-6203 (Electronic) 1932-6203 (Linking)",
+  "doi": "10.1371/journal.pone.0104984",
+  "file_attachments1": "file:///D:/articles/journal.pone.0104984.PDF",
+  "abstract": "Whole genome sequencing (WGS) shows great potential for real-time monitoring and identification of infectious disease outbreaks. However, rapid and reliable comparison of data generated in multiple laboratories and using multiple technologies is essential. So far studies have focused on using one technology because each technology has a systematic bias making integration of data generated from different platforms difficult. We developed two different procedures for identifying variable sites and inferring phylogenies in WGS data across multiple platforms. The methods were evaluated on three bacterial data sets and sequenced on three different platforms (Illumina, 454, Ion Torrent). We show that the methods are able to overcome the systematic biases caused by the sequencers and infer the expected phylogenies. It is concluded that the cause of the success of these new procedures is due to a validation of all informative sites that are included in the analysis. The procedures are available as web tools."
+}

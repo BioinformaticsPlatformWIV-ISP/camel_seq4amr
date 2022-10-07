@@ -1,0 +1,20 @@
+dependencies: [samtools/1.9]
+parameters:
+  adjust_mapping_quality: {default: false, mandatory: false, option: --adjust-MQ,
+    value: '50'}
+  count_orphans: {default: false, mandatory: false, option: --count-orphans, value: null}
+  disable_baq: {default: false, mandatory: false, option: --no-BAQ, value: null}
+  ignore_overlaps: {default: false, mandatory: false, option: --ignore-overlaps, value: null}
+  ignore_read_groups: {default: false, mandatory: false, option: --ignore-RG, value: null}
+  max_depth: {default: false, mandatory: false, option: --max-depth, value: '250'}
+  max_idepth: {default: false, mandatory: false, option: --max-idepth, value: '250'}
+  min_base_quality: {default: false, mandatory: false, option: --min-bq, value: '13'}
+  min_mapping_quality: {default: false, mandatory: false, option: --min-mq, value: '0'}
+  output_bp: {default: false, mandatory: false, option: --output-BP, value: null}
+  output_filename: {default: true, mandatory: true, option: --output, value: samtools.pileup}
+  output_format: {default: true, mandatory: true, option: null, value: pileup}
+  output_mapping_quality: {default: false, mandatory: false, option: --output-MQ,
+    value: null}
+  recalculate_baq: {default: false, mandatory: false, option: --redo-BAQ, value: null}
+  region: {default: false, mandatory: false, option: --region, value: null}
+tool_command: samtools mpileup

@@ -1,0 +1,8 @@
+{
+    "seq_0": "bla_NG_047482.1 {\"allele\": \"bla_NG_047482.1\"}",
+    "seq_1": "bla_NG_047487.1 {\"allele\": \"bla_NG_047487.1\"}",
+    "seq_2": "emrC_AAAIJS010000026.1 {\"allele\": \"emrC_AAAIJS010000026.1\"}",
+    "seq_3": "mcr-9.2_JAGFWX010000027.1 {\"allele\": \"mcr-9.2_JAGFWX010000027.1\"}",
+    "seq_4": "satA_AL009126.3 {\"allele\": \"satA_AL009126.3\"}",
+    "seq_5": "satA_NG_064661.1 {\"allele\": \"satA_NG_064661.1\"}"
+}

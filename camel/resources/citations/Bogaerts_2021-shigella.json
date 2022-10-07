@@ -1,0 +1,31 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Phylogenomic investigation of increasing fluoroquinolone resistance among belgian cases of shigellosis between 2013 and 2018 indicates both travel\u2010related imports and domestic circulation",
+  "first_authors": [
+    "Bogaerts, Bert",
+    "Winand, Raf",
+    "Van Braekel, Julien",
+    "Mattheus, Wesley",
+    "De Keersmaecker, Sigrid C.J.",
+    "Roosens, Nancy H.C.",
+    "Marchal, Kathleen",
+    "Vanneste, Kevin",
+    "Ceyssens, Pieter Jan"
+  ],
+  "publication_year": "2021/04//",
+  "keywords": [
+    "Antimicrobial resistance",
+    "Ciprofloxacin",
+    "Fluoroquinolones",
+    "National reference center",
+    "Public health",
+    "Shigella"
+  ],
+  "publisher": "MDPI AG",
+  "alternate_title3": "Microorganisms",
+  "volume": "9",
+  "number": "4",
+  "doi": "10.3390/microorganisms9040767",
+  "file_attachments1": "file:///D:/articles/Bogaerts et al._2021_Phylogenomic investigation of increasing fluoroquinolone resistance among belgian cases of shigellosis between 2013.pdf",
+  "abstract": "Shigellosis is an acute enteric infection caused mainly by the species Shigella flexneri and Shigella sonnei. Since surveillance of these pathogens indicated an increase in ciprofloxacin\u2010resistant samples collected in Belgium between 2013 and 2018, a subset of 148 samples was analyzed with whole genome sequencing (WGS) to investigate their dispersion and underlying genomic features associated with ciprofloxacin resistance. A comparison between observed phenotypes and WGS-based resistance prediction to ciprofloxacin revealed perfect correspondence for all samples. Core genome multi\u2010locus sequence typing and single nucleotide polymorphism\u2010typing were used for phylogenomic investigation to characterize the spread of these infections within Belgium, supplemented with data from international reference collections to place the Belgian isolates within their global context. For S. flexneri, substantial diversity was observed with ciprofloxacin\u2010resistant isolates assigned to several phylogenetic groups. Besides travel\u2010related imports, several clusters of highly similar Belgian isolates could not be linked directly to international travel suggesting the presence of domestically circulating strains. For S. sonnei, Belgian isolates were all limited to lineage III, and could often be traced back to travel to countries in Asia and Africa, sometimes followed by domestic circulation. For both species, several clusters of isolates obtained exclusively from male patients were observed. Additionally, we illustrated the limitations of conventional serotyping of S. flexneri, which was impacted by serotype switching. This study contributes to a better understanding of the spread of shigellosis within Belgium and internationally, and highlights the added value of WGS for the surveillance of this pathogen."
+}

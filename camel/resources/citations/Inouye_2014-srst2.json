@@ -1,0 +1,24 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "SRST2: Rapid genomic surveillance for public health and hospital microbiology labs",
+  "first_authors": [
+    "Inouye, Michael",
+    "Dashnow, Harriet",
+    "Raven, Lesley-Ann Ann",
+    "Schultz, Mark B.",
+    "Pope, Bernard J.",
+    "Tomita, Takehiro",
+    "Zobel, Justin",
+    "Holt, Kathryn E."
+  ],
+  "publication_year": "2014///",
+  "alternate_title3": "Genome Medicine",
+  "volume": "6",
+  "number": "11",
+  "start_page": "1",
+  "end_page": "16",
+  "issn": "1756-994X",
+  "doi": "10.1186/s13073-014-0090-6",
+  "file_attachments1": "file:///D:/articles/s13073-014-0090-6.pdf",
+  "abstract": "Rapid molecular typing of bacterial pathogens is critical for public health epidemiology, surveillance and infection control, yet routine use of whole genome sequencing (WGS) for these purposes poses significant challenges. Here we present SRST2, a read mapping-based tool for fast and accurate detection of genes, alleles and multi-locus sequence types (MLST) from WGS data. Using >900 genomes from common pathogens, we show SRST2 is highly accurate and outperforms assembly-based methods in terms of both gene detection and allele assignment. We include validation of SRST2 within a public health laboratory, and demonstrate its use for microbial genome surveillance in the hospital setting. In the face of rising threats of antimicrobial resistance and emerging virulence among bacterial pathogens, SRST2 represents a powerful tool for rapidly extracting clinically useful information from raw WGS data. Source code is available from http://katholt.github.io/srst2/."
+}

@@ -1,0 +1,43 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "Validating the AMRFINder tool and resistance gene database by using antimicrobial resistance genotype-phenotype correlations in a collection of isolates",
+  "first_authors": [
+    "Feldgarden, Michael",
+    "Brover, Vyacheslav",
+    "Haft, Daniel H.",
+    "Prasad, Arjun B.",
+    "Slotta, Douglas J.",
+    "Tolstoy, Igor",
+    "Tyson, Gregory H.",
+    "Zhao, Shaohua",
+    "Hsu, Chih Hao",
+    "McDermott, Patrick F.",
+    "Tadesse, Daniel A.",
+    "Morales, Cesar",
+    "Simmons, Mustafa",
+    "Tillman, Glenn",
+    "Wasilenko, Jamie",
+    "Folster, Jason P.",
+    "Klimke, William"
+  ],
+  "publication_year": "2019///",
+  "keywords": [
+    "Analytical software",
+    "Antimicrobial resistance",
+    "Campylobacter",
+    "Computational biology",
+    "Database",
+    "Foodborne pathogens",
+    "Genomics",
+    "Salmonella",
+    "Surveillance"
+  ],
+  "alternate_title3": "Antimicrobial Agents and Chemotherapy",
+  "volume": "63",
+  "number": "11",
+  "start_page": "1",
+  "end_page": "20",
+  "doi": "10.1128/AAC.00483-19",
+  "file_attachments1": "file:///C:/Users/BeBo1045/Downloads/Antimicrobial Agents and Chemotherapy-2019-Feldgarden-e00483-19.full.pdf",
+  "abstract": "Antimicrobial resistance (AMR) is a major public health problem that requires publicly available tools for rapid analysis. To identify AMR genes in whole-genome sequences, the National Center for Biotechnology Information (NCBI) has produced AMRFinder, a tool that identifies AMR genes using a high-quality curated AMR gene reference database. The Bacterial Antimicrobial Resistance Reference Gene Database consists of up-to-date gene nomenclature, a set of hidden Markov models (HMMs), and a curated protein family hierarchy. Currently, it contains 4,579 antimicrobial resistance proteins and more than 560 HMMs. Here, we describe AMRFinder and its associated database. To assess the predictive ability of AMRFinder, we measured the consistency between predicted AMR genotypes from AMRFinder and resistance phenotypes of 6,242 isolates from the National Antimicrobial Resistance Monitoring System (NARMS). This included 5,425 Salmonella enterica, 770 Campylobacter spp., and 47 Escherichia coli isolates phenotypically tested against various antimicrobial agents. Of 87,679 susceptibility tests performed, 98.4% were consistent with predictions. To assess the accuracy of AMRFinder, we compared its gene symbol output with that of a 2017 version of ResFinder, another publicly available resistance gene detection system. Most gene calls were identical, but there were 1,229 gene symbol differences (8.8%) between them, with differences due to both algorithmic differences and database composition. AMRFinder missed 16 loci that ResFinder found, while ResFinder missed 216 loci that AMRFinder identified. Based on these results, AMRFinder appears to be a highly accurate AMR gene detection system."
+}

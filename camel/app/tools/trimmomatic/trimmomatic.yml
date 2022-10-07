@@ -1,0 +1,17 @@
+dependencies: [java, trimmomatic/0.38]
+parameters:
+  average_quality: {default: false, mandatory: false, option: 'AVGQUAL:', p_index: 0,
+    value: '20'}
+  baseout: {default: true, mandatory: true, option: -baseout, p_index: -1, value: trimmomatic_output.fastq}
+  head_crop: {default: false, mandatory: false, option: 'HEADCROP:', p_index: 0, value: '1'}
+  illuminaclip_PE: {default: true, mandatory: false, option: 'ILLUMINACLIP:', p_index: -1,
+    value: '$TRIMMOMATIC_ADAPTER_DIR/NexteraPE-PE.fa:2:30:10'}
+  illuminaclip_SE: {default: true, mandatory: false, option: 'ILLUMINACLIP:', p_index: -1,
+    value: '$TRIMMOMATIC_ADAPTER_DIR/TruSeq3-SE.fa:2:30:10'}
+  leading: {default: true, mandatory: false, option: 'LEADING:', p_index: 20, value: '10'}
+  minlen: {default: true, mandatory: false, option: 'MINLEN:', p_index: 50, value: '40'}
+  slidingwindow: {default: true, mandatory: false, option: 'SLIDINGWINDOW:', p_index: 40,
+    value: '4:20'}
+  threads: {default: true, mandatory: false, option: -threads, p_index: -1, value: '6'}
+  trailing: {default: true, mandatory: false, option: 'TRAILING:', p_index: 30, value: '10'}
+tool_command: trimmomatic

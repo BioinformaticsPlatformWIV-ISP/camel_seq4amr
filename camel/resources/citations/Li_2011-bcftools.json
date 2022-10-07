@@ -1,0 +1,17 @@
+{
+  "type_of_reference": "JOUR",
+  "primary_title": "A statistical framework for SNP calling, mutation discovery, association mapping and population genetical parameter estimation from sequencing data",
+  "first_authors": [
+    "Li, Heng"
+  ],
+  "publication_year": "2011///",
+  "alternate_title3": "Bioinformatics",
+  "volume": "27",
+  "number": "21",
+  "start_page": "2987",
+  "end_page": "2993",
+  "issn": "1367-4811 (Electronic)\\r1367-4803 (Linking)",
+  "doi": "10.1093/bioinformatics/btr509",
+  "file_attachments1": "file:///D:/articles/btr509.pdf",
+  "abstract": "Motivation: Most existing methods for DNA sequence analysis rely on accurate sequences or genotypes. However, in applications of the next-generation sequencing (NGS), accurate genotypes may not be easily obtained (e.g. multi-sample low-coverage sequencing or somatic mutation discovery). These applications press for the development of new methods for analyzing sequence data with uncertainty. Results: We present a statistical framework for calling SNPs, discovering somatic mutations, inferring population genetical parameters and performing association tests directly based on sequencing data without explicit genotyping or linkage-based imputation. On real data, we demonstrate that our method achieves comparable accuracy to alternative methods for estimating site allele count, for inferring allele frequency spectrum and for association mapping. We also highlight the necessity of using symmetric datasets for finding somatic mutations and confirm that for discovering rare events, mismapping is frequently the leading source of errors. Availability: http://samtools.sourceforge.net. Contact: hengli@broadinstitute.org."
+}
