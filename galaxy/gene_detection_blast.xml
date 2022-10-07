@@ -1,0 +1,250 @@
+<tool id="gene_detection_blast" name="Gene detection (BLAST)" version="0.1">
+    <description>Detection of genes from specific databases using blastn</description>
+    <command>
+        <![CDATA[
+    $__tool_directory__/run_gene_detection_blast.sh
+
+    ## Database
+    #if str($section_db.db_type.db_type_selector) == 'local':
+        --database-dir $section_db.db_type.db_local
+        --output-html "$output_html_local"
+        --output-dir "$output_html_local.files_path"
+    #else:
+        --database-dir "$section_db.db_type.db_hist.extra_files_path"
+        --output-html "$output_html_hist"
+        --output-dir "$output_html_hist.files_path"
+    #end if
+
+    ## Input files
+    #if str($section_input.input_format.input_format_selector) == 'fasta':
+        --fasta $section_input.input_format.fasta
+        --fasta-name "$section_input.input_format.fasta.name"
+    #else:
+        --read-type $section_input.input_format.fastq_tech.fastq_tech_selector
+        #if str($section_input.input_format.fastq_tech.fastq_tech_selector) == 'illumina':
+            --fastq-pe $section_input.input_format.fastq_tech.fastq_illumina_1 $section_input.input_format.fastq_tech.fastq_illumina_2
+            --fastq-pe-names "$section_input.input_format.fastq_tech.fastq_illumina_1.name" "$section_input.input_format.fastq_tech.fastq_illumina_2.name"
+        #elif str($section_input.input_format.fastq_tech.fastq_tech_selector) == 'iontorrent':
+            --fastq-se $section_input.input_format.fastq_tech.fastq_iontorrent
+            --fastq-se-name "$section_input.input_format.fastq_tech.fastq_iontorrent.name"
+        #end if
+
+        $section_input.input_format.trim_reads
+        #if str($section_input.input_format.assembly_settings.kmers) != '':
+            --assembly-kmers "$section_input.input_format.assembly_settings.kmers"
+        #end if
+        #if str($section_input.input_format.assembly_settings.cov_cutoff_conditional.cov_cutoff_selector) == 'yes':
+            --assembly-cov-cutoff $section_input.input_format.assembly_settings.cov_cutoff_conditional.cov_cutoff
+        #end if
+        --assembly-min-contig-length $section_input.input_format.assembly_settings.min_contig_length
+
+        ## Output assembly (if specified)
+        #if $section_input.input_format.assembly_settings.save_assembly:
+            --output-fasta "$output_fasta"
+        #end if
+    #end if
+
+    --blast-min-percent-identity $options.percent_identity
+    --blast-min-percent-coverage $options.min_coverage
+    --blast-task $options.blast_task
+
+    $report.report_include_fastq
+    ]]>
+    </command>
+
+    <inputs>
+        <!-- Database -->
+        <section name="section_db" title="Database" expanded="true">
+            <conditional name="db_type">
+                <param name="db_type_selector" type="select" label="Database source">
+                    <option value="local">Local database</option>
+                    <option value="history">Database from history</option>
+                </param>
+                <when value="local">
+                    <param name="db_local" type="select" label="Database">
+                        <options from_data_table="gene_detection_db_1.0">
+                            <column name="name" index="0"/>
+                            <column name="value" index="1"/>
+                        </options>
+                    </param>
+                </when>
+                <when value="history">
+                    <param name="db_hist" type="data" format="html" label="Database"
+                           help="Databases can be generated from a FASTA file with the 'Gene detection - create database' tool."/>
+                </when>
+            </conditional>
+        </section>
+
+        <!-- Input files -->
+        <section name="section_input" title="Input" expanded="true">
+            <conditional name="input_format">
+                <param name="input_format_selector" type="select" label="Input format">
+                    <option value="fasta" selected="True">Assembled contigs or genome (FASTA)</option>
+                    <option value="fastq">Reads (FASTQ)</option>
+                </param>
+                <when value="fasta">
+                    <param name="fasta" type="data" format="fasta" label="Assembly / Contigs file"/>
+                </when>
+                <when value="fastq">
+                    <!-- FASTQ input -->
+                    <conditional name="fastq_tech">
+                        <param name="fastq_tech_selector" type="select" label="FASTQ type">
+                            <option value="illumina">Illumina paired-end reads</option>
+                            <option value="iontorrent">IonTorrent single-end reads</option>
+                        </param>
+                        <when value="illumina">
+                            <param name="fastq_illumina_1" type="data" format="fastq,fastqsanger.gz"
+                                   label="Forward reads"/>
+                            <param name="fastq_illumina_2" type="data" format="fastq,fastqsanger.gz"
+                                   label="Reverse reads"/>
+                        </when>
+                        <when value="iontorrent">
+                            <param name="fastq_iontorrent" type="data" format="fastq,fastqsanger.gz"
+                                   label="IonTorrent reads"/>
+                        </when>
+                    </conditional>
+
+                    <!-- Other settings -->
+                    <param name="trim_reads" type="boolean" checked="true" label="Perform read trimming"
+                           help="Read trimming using trimmomatic." truevalue="--trim-reads" falsevalue=""/>
+                    <section name="assembly_settings" title="Assembly options" expanded="false">
+                        <param name="kmers" type="text" label="Assembly k-mer sizes"
+                               help="Note: Leave blank to determine automatically. Comma-separated list of k-mer sizes to use for the assembly."/>
+                        <param name="min_contig_length" type="integer" label="Minimal contig length"
+                               help="Contigs smaller than this value are removed from the assembly." value="1000"/>
+                        <conditional name="cov_cutoff_conditional">
+                            <param name="cov_cutoff_selector" type="select" label="Remove low coverage contigs">
+                                <option value="yes" selected="True">Yes</option>
+                                <option value="no">No</option>
+                            </param>
+                            <when value="yes">
+                                <param name="cov_cutoff" type="integer" label="Coverage cutoff"
+                                       help="Removes contigs with lower (kmer) coverage than this value. Set to 0 to use the 'auto' setting."
+                                       value="10"/>
+                            </when>
+                        </conditional>
+                        <param name="save_assembly" type="boolean" checked="true" label="Save assembly"
+                               help="Outputs the assembly to history" truevalue="" falsevalue=""/>
+                    </section>
+                </when>
+            </conditional>
+        </section>
+
+        <!-- Parameters -->
+        <section name="options" title="Options" expanded="true">
+            <param name="percent_identity" type="integer" min="0" max="100" value="90" label="% Identity threshold"/>
+            <param name="min_coverage" type="integer" min="0" max="100" value="60"
+                   label="Minimum length (% of query covered)"/>
+            <param name="blast_task" type="select" label="blast task">
+                <option value="megablast" selected="True">megablast</option>
+                <option value="blastn">blastn</option>
+            </param>
+        </section>
+        <section name="report" title="Report" expanded="false">
+            <param name="report_include_fastq" label="Include trimmed FASTQ files in report" type="boolean"
+                   checked="false" truevalue="--report-include-fastq" falsevalue=""
+                   help="Note: FASTQ files can take up quite some space, they slow down the downloading of the report afterwards."/>
+        </section>
+    </inputs>
+
+    <outputs>
+        <!-- There are two options for the output due to the different naming  -->
+        <data name="output_html_local" format="html"
+              label="BLAST - Gene detection (${section_db.db_type.db_local.fields.name}) on ${on_string}">
+            <filter>section_db['db_type']['db_type_selector'] == 'local'</filter>
+        </data>
+        <data name="output_html_hist" format="html"
+              label="BLAST - Gene detection (${section_db.db_type.db_hist.name}) on ${on_string}">
+            <filter>section_db['db_type']['db_type_selector'] == 'history'</filter>
+        </data>
+        <data name="output_fasta" format="fasta" label="Assembled contigs - Gene detection on ${on_string}">
+            <filter>(section_input['input_format']['input_format_selector'] == 'fastq') and (section_input['input_format']['assembly_settings']['save_assembly'])</filter>
+        </data>
+    </outputs>
+    <help>
+        <![CDATA[
+**Gene detection**
+
+This tool can be used to detect genes using BLAST+ blastn alignment.
+The sequences in the database are clustered based on sequence similarity, hits are filtered so only the best hit(s) for each cluster is/are reported.
+
+--------
+
+This tool supports the following input formats:
+
+- **FASTA** file, directly aligned against the reference database.
+- **FASTQ** files (PE) which are (optionally) trimmed and then de-novo assembled using SPAdes. The resulting contigs are then aligned against the reference database.
+
+--------
+
+This tool was developed by the BIOIT department of Sciensano (Belgium). Contact: bioit@sciensano.be.
+
+]]>
+    </help>
+    <stdio>
+        <exit_code range="1:" level="fatal"/>
+    </stdio>
+    <citations>
+        <citation type="bibtex">@article{Camacho2009,
+            author = {Camacho, Christiam and Coulouris, George and Avagyan, Vahram and Ma, Ning and Papadopoulos, Jason
+            and Bealer, Kevin and Madden, Thomas L.},
+            doi = {10.1186/1471-2105-10-421},
+            isbn = {1471-2105 (Electronic)\r1471-2105 (Linking)},
+            issn = {14712105},
+            journal = {BMC Bioinformatics},
+            number = {1},
+            pages = {421},
+            pmid = {20003500},
+            title = {{BLAST+: Architecture and applications}},
+            volume = {10},
+            year = {2009}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{https://doi.org/10.1002/cpbi.102,
+            author = {Prjibelski, Andrey and Antipov, Dmitry and Meleshko, Dmitry and Lapidus, Alla and Korobeynikov,
+            Anton},
+            title = {Using SPAdes De Novo Assembler},
+            journal = {Current Protocols in Bioinformatics},
+            volume = {70},
+            number = {1},
+            pages = {e102},
+            doi = {https://doi.org/10.1002/cpbi.102},
+            url = {https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpbi.102},
+            eprint = {https://currentprotocols.onlinelibrary.wiley.com/doi/pdf/10.1002/cpbi.102},
+            year = {2020}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{Bolger2014,
+            author = {Bolger, Anthony M. and Lohse, Marc and Usadel, Bjoern},
+            doi = {10.1093/bioinformatics/btu170},
+            isbn = {1367-4803},
+            issn = {14602059},
+            journal = {Bioinformatics},
+            number = {15},
+            pages = {2114--2120},
+            pmid = {24695404},
+            title = {{Trimmomatic: A flexible trimmer for Illumina sequence data}},
+            volume = {30},
+            year = {2014}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{Gurevich2013,
+            author = {Gurevich, Alexey and Saveliev, Vladislav and Vyahhi, Nikolay and Tesler, Glenn},
+            doi = {10.1093/bioinformatics/btt086},
+            issn = {13674803},
+            journal = {Bioinformatics},
+            month = {apr},
+            number = {8},
+            pages = {1072--1075},
+            pmid = {23422339},
+            title = {{QUAST: Quality assessment tool for genome assemblies}},
+            volume = {29},
+            year = {2013}
+            }
+        </citation>
+    </citations>
+</tool>
+

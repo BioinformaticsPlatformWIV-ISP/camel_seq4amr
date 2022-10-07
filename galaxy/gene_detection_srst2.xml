@@ -1,0 +1,153 @@
+<tool id="gene_detection_srst2" name="Gene detection (SRST2)" version="0.1">
+    <description>Detection of genes from specific databases using SRST2</description>
+    <command>
+    <![CDATA[
+    $__tool_directory__/run_gene_detection_srst2.sh
+
+    ## Database
+    #if str($db_type.db_type_selector) == 'local':
+        --database-dir $db_type.db_local
+        --output-html "$output_html_local"
+        --output-dir "$output_html_local.files_path"
+    #else:
+        --database-dir "$db_type.db_hist.extra_files_path"
+        --output-html "$output_html_hist"
+        --output-dir "$output_html_hist.files_path"
+    #end if
+
+     ## Input files
+    --read-type $read_type.read_type_selector
+    #if str($read_type.read_type_selector) == 'illumina':
+        --fastq-pe $read_type.fastq_illumina_1 $read_type.fastq_illumina_2
+        --fastq-pe-names "$read_type.fastq_illumina_1.name" "$read_type.fastq_illumina_2.name"
+    #elif str($read_type.read_type_selector) == 'iontorrent':
+        --fastq-se $read_type.fastq_iontorrent
+        --fastq-se-name "$read_type.fastq_iontorrent.name"
+    #end if
+
+    ## Trimming
+    #if str($trimming_settings.trim_reads_conditional.trim_reads) == 'yes':
+        --trim-reads
+        $trimming_settings.trim_reads_conditional.save_fastq_trimmed
+    #end if
+
+    --srst2-min-cov $percent_coverage
+    --srst2-max-div $max_divergence
+    --srst2-max-unaligned-overlap $advanced.max_unaligned_overlap
+    --srst2-max-mismatch $advanced.max_mismatch
+
+    --detection-method "srst2"
+    ]]>
+    </command>
+
+    <inputs>
+        <!-- Database -->
+        <conditional name="db_type">
+            <param name="db_type_selector" type="select" label="Database source">
+                <option value="local">Local database</option>
+                <option value="history">Database from history</option>
+            </param>
+            <when value="local">
+                <param name="db_local" type="select" label="Database">
+                    <options from_data_table="gene_detection_db_1.0">
+                        <column name="name" index="0"/>
+                        <column name="value" index="1"/>
+                    </options>
+                </param>
+            </when>
+            <when value="history">
+                <param name="db_hist" type="data" format="html" label="Database" help="Databases can be generated from a FASTA file with the 'Gene detection - create database' tool."/>
+            </when>
+        </conditional>
+
+        <!-- Input files -->
+        <conditional name="read_type">
+            <param name="read_type_selector" label="Read type" type="select">
+                <option value="illumina">Illumina (Paired-end)</option>
+                <option value="iontorrent">IonTorrent (Single-end)</option>
+            </param>
+            <when value="illumina">
+                <param name="fastq_illumina_1" type="data" format="fastq,fastqsanger.gz" label="Forward reads"/>
+                <param name="fastq_illumina_2" type="data" format="fastq,fastqsanger.gz" label="Reverse reads"/>
+            </when>
+            <when value="iontorrent">
+                <param name="fastq_iontorrent" type="data" format="fastq,fastqsanger.gz" label="Reads"/>
+            </when>
+        </conditional>
+
+        <section name="trimming_settings" title="Read trimming options" expanded="true">
+            <conditional name="trim_reads_conditional">
+                <param name="trim_reads" type="select" label="Perform read trimming">
+                    <option value="yes" selected="True">Yes</option>
+                    <option value="no">No</option>
+                </param>
+                <when value="yes">
+                    <param name="save_fastq_trimmed" label="Include trimmed FASTQ files in report" type="boolean" checked="false" truevalue="--report-include-fastq" falsevalue=""
+                           help="Note: FASTQ files can take up quite some space, they slow down the downloading of the report afterwards." />
+                </when>
+            </conditional>
+        </section>
+
+        <param name="percent_coverage" type="integer" min="0" max="100" value="90" label="Minimum % coverage threshold" help="Minimum percentage of database sequence that needs to be covered."/>
+        <param name="max_divergence" type="integer" min="0" max="100" value="10" label="Maximum % divergence threshold" help="Maximal percentage of divergence between database sequence and reads."/>
+        <section name="advanced" title="Advanced options" expanded="false">
+            <param name="max_unaligned_overlap" type="integer" min="0" max="300" value="150" label="Max unaligned overlap" help="Read discarded from alignment if either of its ends has unaligned overlap with the reference that is longer than this value."/>
+            <param name="max_mismatch" type="integer" min="0" max="100" value="10" label="Max mismatch" help="Maximum number of mismatches per read for gene detection."/>
+        </section>
+    </inputs>
+
+    <outputs>
+        <!-- There are two options for the output due to the different naming  -->
+        <data name="output_html_local" format="html" label="SRST2 - Gene detection (${db_type.db_local.fields.name}) on ${on_string}">
+            <filter>db_type['db_type_selector'] == 'local'</filter>
+        </data>
+        <data name="output_html_hist" format="html" label="SRST2 - Gene detection (${db_type.db_hist.name}) on ${on_string}">
+            <filter>db_type['db_type_selector'] == 'history'</filter>
+        </data>
+    </outputs>
+    <help>
+        <![CDATA[
+**Gene detection**
+
+This tool can be used to detect genes using SRST2 read mapping and hit selection.
+The sequences in the database are clustered based on sequence similarity, hits are filtered so only the best hit(s) for each cluster are reported.
+
+--------
+
+This tool was developed by the BIOIT department of Sciensano (Belgium). Contact: bioit@sciensano.be.
+
+]]>
+    </help>
+    <stdio>
+        <exit_code range="1:" level="fatal"/>
+    </stdio>
+    <citations>
+        <citation type="bibtex">@article{Inouye2014,
+            doi = {10.1186/s13073-014-0090-6},
+            issn = {1756994X},
+            journal = {Genome Medicine},
+            month = {nov},
+            number = {11},
+            publisher = {BioMed Central Ltd.},
+            title = {{SRST2: Rapid genomic surveillance for public health and hospital microbiology labs}},
+            volume = {6},
+            year = {2014}
+            }
+        </citation>
+        <citation type="bibtex">
+            @article{Bolger2014,
+            author = {Bolger, Anthony M. and Lohse, Marc and Usadel, Bjoern},
+            doi = {10.1093/bioinformatics/btu170},
+            isbn = {1367-4803},
+            issn = {14602059},
+            journal = {Bioinformatics},
+            number = {15},
+            pages = {2114--2120},
+            pmid = {24695404},
+            title = {{Trimmomatic: A flexible trimmer for Illumina sequence data}},
+            volume = {30},
+            year = {2014}
+            }
+        </citation>
+    </citations>
+</tool>

@@ -1,0 +1,23 @@
+# Tool data loc file for the gene detection tool	
+ARG-ANNOT	/db/gene_detection/ARG-ANNOT
+CARD	/db/gene_detection/CARD
+NCBI 16S	/db/gene_detection/NCBI_16S
+NCBI AMR genes	/db/gene_detection/NCBI_AMR
+NCBI stress response genes	/db/gene_detection/NCBI_STRESS
+NCBI virulence genes	/db/gene_detection/NCBI_VIRULENCE
+PlasmidFinder - entero	/db/gene_detection/PlasmidFinder-entero
+PlasmidFinder - gram positive	/db/gene_detection/PlasmidFinder-gram_positive
+ResFinder	/db/gene_detection/ResFinder
+SerotypeFinder - H type (E. coli)	/db/gene_detection/SerotypeFinder-H_type
+SerotypeFinder - O type (E. coli)	/db/gene_detection/SerotypeFinder-O_type
+UniVec	/db/gene_detection/UniVec
+UniVec - CDS (Curated)	/db/gene_detection/UniVec_cds_curated
+UniVec - CDS (Full)	/db/gene_detection/UniVec_cds_full
+VirulenceFinder - Ecoli	/db/gene_detection/VirulenceFinder-Ecoli
+VirulenceFinder - Listeria	/db/gene_detection/VirulenceFinder-Listeria
+VirulenceFinder - Shiga	/db/gene_detection/VirulenceFinder-Shiga
+VirulenceFinder - S. aureus (Exo-enzyme)	/db/gene_detection/VirulenceFinder-Saureus-exoenzyme
+VirulenceFinder - S. aureus (Host immunity)	/db/gene_detection/VirulenceFinder-Saureus-hostimm
+VirulenceFinder - S. aureus (Toxins)	/db/gene_detection/VirulenceFinder-Saureus-toxin
+VirulenceFactor DB (core)	/db/gene_detection/VFDB_core
+VirulenceFactor DB (full)	/db/gene_detection/VFDB_full
