@@ -14,7 +14,7 @@ class ReporterTrimmingIonTorrent(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('Trimming-IonTorrent: reporter', '0.1')
+        super().__init__('Reporter trimming IonTorrent', '0.1')
         self._sub_folder = Path('read_trimming')
         self._report_section = None
 

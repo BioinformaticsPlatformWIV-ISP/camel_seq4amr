@@ -110,7 +110,7 @@ rule assembly_report:
         running_dir = Path(config['working_dir']) / 'assembly_spades' / 'report',
         sample_name = config['sample_name']
     run:
-        from camel.app.tools.assembly.htmlreporterassembly import HtmlReporterAssembly
+        from camel.app.tools.reporters.reporterassembly import HtmlReporterAssembly
         from camel.app.io.tooliovalue import ToolIOValue
         reporter = HtmlReporterAssembly()
         reporter.add_input_files({

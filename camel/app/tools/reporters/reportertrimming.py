@@ -16,7 +16,7 @@ class ReporterTrimming(Tool):
         Initialize this tool.
         :return: None
         """
-        super().__init__('Trimming: reporter', '0.1')
+        super().__init__('Reporter trimming', '0.1')
         self.__sub_folder = Path('read_trimming')
         self._report_section = None
 

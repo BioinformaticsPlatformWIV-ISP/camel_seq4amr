@@ -7,7 +7,7 @@ from camel.app.utils.fileutils import FileUtils
 from camel.app.utils.report.htmlreportsection import HtmlReportSection
 
 
-class HtmlReporterAssembly(Tool):
+class ReporterAssembly(Tool):
     """
     Tool to create HTML reports for the Assembly.
     """
@@ -17,7 +17,7 @@ class HtmlReporterAssembly(Tool):
         Initialize this tool.
         :return: None
         """
-        super().__init__('HTML Reporter', '0.1')
+        super().__init__('Reporter assembly', '0.1')
         self.__subfolder = Path('assembly')
         self._report_section = None
 
