@@ -14,7 +14,7 @@ class MakeBlastDb(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('makeblastdb', '2.6.0')
+        super().__init__('makeblastdb', '2.13.0+')
 
     def _execute_tool(self) -> None:
         """

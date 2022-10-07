@@ -1,5 +1,0 @@
-dependencies: []
-parameters:
-  coverage_cutoff: {default: true, mandatory: false, option: null, p_index: 0, value: '0'}
-  minimal_gap_length: {default: false, mandatory: false, option: null, p_index: 0, value: '1'}
-tool_command: null

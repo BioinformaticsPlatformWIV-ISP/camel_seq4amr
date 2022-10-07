@@ -16,7 +16,7 @@ class KMA(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('KMA', '1.2.25')
+        super().__init__('KMA', '1.4.3')
 
     def _check_input(self) -> None:
         """

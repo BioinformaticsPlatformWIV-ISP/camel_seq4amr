@@ -16,7 +16,7 @@ class FastQC(Tool):
         """
         Initializes FastQC.
         """
-        super().__init__('FastQC', '0.11.5')
+        super().__init__('FastQC', '0.11.9')
 
     def _execute_tool(self) -> None:
         """

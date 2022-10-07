@@ -1,7 +1,0 @@
-dependencies: [samtools/1.9]
-parameters:
-  csi_min_interval: {default: false, mandatory: false, option: -m, p_index: 0, value: '14'}
-  generate_bai_index: {default: false, mandatory: false, option: -b, p_index: 0, value: null}
-  generate_csi_index: {default: false, mandatory: false, option: -c, p_index: 0, value: null}
-  output_filename: {default: false, mandatory: false, option: null, p_index: 0, value: null}
-tool_command: samtools index

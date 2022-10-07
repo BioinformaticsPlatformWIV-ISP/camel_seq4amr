@@ -14,7 +14,7 @@ class FastqQualityTrimmer(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('Fastx: fastq quality trimmer', '0.0.13')
+        super().__init__('Fastx: fastq quality trimmer', '0.0.14')
 
     def _execute_tool(self) -> None:
         """

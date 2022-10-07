@@ -23,7 +23,7 @@ class SPAdes(Tool):
         Initialize tool
         :return: None
         """
-        super().__init__('spades', '3.13.0')
+        super().__init__('spades', '3.15.5')
         self._input_string = None
 
     def _execute_tool(self) -> None:

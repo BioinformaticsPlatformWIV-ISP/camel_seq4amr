@@ -1,8 +1,0 @@
-dependencies: [samtools/1.9]
-parameters:
-  output_filename: {default: true, mandatory: false, option: -o, value: samtools_sort.bam}
-  output_format: {default: true, mandatory: false, option: --output-fmt, value: bam}
-  sort_by_read_name: {default: false, mandatory: false, option: -n, value: null}
-  temporary_files: {default: true, mandatory: false, option: -T, value: samtools_sort.tmp}
-  threads: {default: true, mandatory: false, option: --threads, value: '8'}
-tool_command: samtools sort

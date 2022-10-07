@@ -22,7 +22,7 @@ class Trimmomatic(Tool):
         """
         Initializes Trimmomatic.
         """
-        super().__init__('Trimmomatic', '0.38')
+        super().__init__('Trimmomatic', '0.39')
         self.__get_adapter_dir()
         self._mode = None
 

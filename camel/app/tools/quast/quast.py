@@ -18,7 +18,7 @@ class Quast(Tool):
         Initialize tool
         :return: None
         """
-        super().__init__('quast', '4.4')
+        super().__init__('quast', '5.2.0')
 
     def _execute_tool(self) -> None:
         """
