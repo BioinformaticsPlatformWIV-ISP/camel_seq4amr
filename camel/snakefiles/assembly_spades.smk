@@ -110,9 +110,9 @@ rule assembly_report:
         running_dir = Path(config['working_dir']) / 'assembly_spades' / 'report',
         sample_name = config['sample_name']
     run:
-        from camel.app.tools.reporters.reporterassembly import HtmlReporterAssembly
+        from camel.app.tools.reporters.reporterassembly import ReporterAssembly
         from camel.app.io.tooliovalue import ToolIOValue
-        reporter = HtmlReporterAssembly()
+        reporter = ReporterAssembly()
         reporter.add_input_files({
             'SAMPLE_NAME': [ToolIOValue(params.sample_name)], 'ASSEMBLER': [ToolIOValue('SPAdes')]})
         SnakemakeUtils.add_pickle_inputs(reporter, input)

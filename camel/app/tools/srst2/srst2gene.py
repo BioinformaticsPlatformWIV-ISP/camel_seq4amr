@@ -47,7 +47,7 @@ class Srst2Gene(Tool):
         if cmd_conda.stdout == '':
             raise RuntimeError("conda not available in path")
         path_conda = Path(cmd_conda.stdout)
-        path_init = path_conda.parents[1] / 'etc' / 'profile.d' / 'conda.sh'
+        path_init = path_conda.parents[3] / 'etc' / 'profile.d' / 'conda.sh'
         if not path_init.exists():
             raise ValueError("Cannot retrieve path of the conda init script")
         return path_init

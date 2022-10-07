@@ -1,12 +1,9 @@
 # Logging and storage
-dir_temp: /scratch/temp/camel_seq4amr
+dir_temp: /temp/camel
 logging:
   format: '%(asctime)s - %(name)s - %(funcName)s - %(levelname)s - %(message)s'
   store_logs: true
-  dir_logs: /temp/bebog/db/logs
-
-# Testing data
-dir_testdata: /temp/tmp_testdata
+  dir_logs: /logs/camel
 
 # Configuration
 use_lmod: false
