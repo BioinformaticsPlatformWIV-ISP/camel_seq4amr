@@ -1,0 +1,6 @@
+beautifulsoup4==4.12.3
+biopython==1.84
+humanize==4.11.0
+pytest==8.3.4
+snakemake==8.25.5
+yattag==1.16.1
