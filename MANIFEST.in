@@ -1,0 +1,5 @@
+include camel/config/config.yml.sample
+recursive-include camel/app/tools *.yml
+recursive-include camel/data *
+recursive-include camel/resources *
+recursive-include camel/snakefiles *
