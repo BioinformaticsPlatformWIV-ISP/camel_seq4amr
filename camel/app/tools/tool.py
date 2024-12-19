@@ -21,21 +21,21 @@ class Tool(object, metaclass=abc.ABCMeta):
     Contains the common functionality of tools.
     """
 
-    def __init__(self, name: str, version: str) -> None:
+    def __init__(self, name: str) -> None:
         """
         Initializes a tool.
         """
-        logging.debug("Initializing tool: {} {}".format(name, version))
+        logging.debug(f'Initializing tool: {name}')
         self._name = name
-        self._version = version
-        self._tool_inputs: Dict[str, List[Union[ToolIOFile, ToolIOValue, ToolIODirectory, ToolIO]]] = {}
-        self._tool_outputs: Dict[str, List[Union[ToolIOFile, ToolIOValue, ToolIODirectory, ToolIO]]] = {}
-        self._informs = {'_name': self.name, '_version': self._version}
-        self._input_informs = {}
         self._tool_service = self.get_tool_service()
         self._tool_command = self._tool_service.get_tool_command()
         self._dependencies = self._tool_service.get_dependencies()
         self._parameters = self._tool_service.get_default_parameters()
+        self._version = self.get_version()
+        self._tool_inputs: Dict[str, List[Union[ToolIOFile, ToolIOValue, ToolIODirectory, ToolIO]]] = {}
+        self._tool_outputs: Dict[str, List[Union[ToolIOFile, ToolIOValue, ToolIODirectory, ToolIO]]] = {}
+        self._informs = {'_name': self.name, '_version': self._version}
+        self._input_informs = {}
         self._command = Command()
         self._folder = None
 
@@ -55,13 +55,13 @@ class Tool(object, metaclass=abc.ABCMeta):
         """
         return self._version
 
-    @property
-    def tool_id(self) -> int:
+    @abc.abstractmethod
+    def get_version(self) -> str:
         """
-        Returns the tool id.
-        :return: Tool id
+        Retrieves the tool version.
+        :return: None
         """
-        return self._tool_service.tool_id
+        raise NotImplementedError()
 
     @property
     def tool_outputs(self) -> Dict[str, List[Union[ToolIOFile, ToolIOValue, ToolIODirectory, ToolIO]]]:

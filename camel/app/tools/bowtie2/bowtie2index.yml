@@ -1,6 +1,0 @@
-dependencies: [bowtie2/2.4.1]
-parameters:
-  large_index: {default: false, mandatory: false, option: --large-index, value: 'false'}
-  quiet: {default: true, mandatory: false, option: --quiet, value: null}
-  threads: {default: false, mandatory: false, option: --threads, value: '1'}
-tool_command: bowtie2-build

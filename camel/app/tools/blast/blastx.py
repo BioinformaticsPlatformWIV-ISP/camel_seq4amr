@@ -11,4 +11,4 @@ class Blastx(Blast):
         Initialize tool.
         :return: None
         """
-        super().__init__('blastx', '2.13.0+')
+        super().__init__('blastx')

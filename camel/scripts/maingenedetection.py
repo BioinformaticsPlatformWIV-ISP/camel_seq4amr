@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 import argparse
-import json
+import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Sequence
 
-import shutil
-
 from camel.app import loggingutils
+from camel.app.tools.blast.blastn import Blastn
+from camel.app.tools.blast.blastx import Blastx
 from camel.app.utils import mainscriptutils
-from camel.app.utils.preprocessing import helper_by_read_type
+from camel.app.utils.report.htmlcitation import HtmlCitation
 from camel.app.utils.report.htmlreport import HtmlReport
+from camel.app.utils.report.htmlreportsection import HtmlReportSection
+from camel.app.utils.snakemake.snakepipelineutils import SnakePipelineUtils
 from camel.app.workflows.genedetectionwrapper import GeneDetectionWrapper, GeneDetectionOutput
+from camel.version import __version__
 
 
 class MainGeneDetection(object):
@@ -24,8 +27,32 @@ class MainGeneDetection(object):
         :param args: Arguments (optional)
         """
         self._args = MainGeneDetection.parse_arguments(args)
-        self._sample_name = mainscriptutils.determine_sample_name(self._args)
-        self._helper = helper_by_read_type[self._args.read_type](self._args.working_dir, self._sample_name)
+        self._sample_name = self.__determine_sample_name()
+
+    def __determine_sample_name(self) -> str:
+        """
+        Retrieves the sample name based on the input FASTA file.
+        :return: Sample name
+        """
+        if self._args.fasta_name is not None:
+            return self._args.fasta_name
+        return self._args.fasta.name
+
+    def _check_dependencies(self) -> None:
+        """
+        Checks if the required dependencies are available.
+        :return: None
+        """
+        logging.info("Checking dependencies")
+        tools = {'blastn': Blastn, 'blastx': Blastx}
+
+        # Run commands to see if tools are available
+        for key, Tool_class in tools.items():
+            try:
+                tool = Tool_class()
+                logging.info(f"{tool.name}: OK (version: {tool.version})")
+            except BaseException:
+                raise RuntimeError(f'Dependency not found: {key}')
 
     @staticmethod
     def parse_arguments(args: Optional[Sequence[str]]) -> argparse.Namespace:
@@ -34,27 +61,27 @@ class MainGeneDetection(object):
         :return: Parsed arguments
         """
         argument_parser = argparse.ArgumentParser()
-        mainscriptutils.add_common_arguments(argument_parser)
-        mainscriptutils.add_assembly_arguments(argument_parser)
-        mainscriptutils.add_input_files_arguments(argument_parser)
-        argument_parser.add_argument('--database-dir', type=Path, required=True)
-        argument_parser.add_argument('--detection-method', type=str, choices=['blast', 'srst2', 'kma'], default='blast')
 
-        # BLAST specific parameters
-        argument_parser.add_argument('--output-fasta', type=Path, help='output path for assembled contigs')
-        argument_parser.add_argument('--blast-min-percent-identity', type=int, default=90)
-        argument_parser.add_argument('--blast-min-percent-coverage', type=int, default=60)
-        argument_parser.add_argument('--blast-task', type=str, choices=['blastn', 'megablast'], default='megablast')
+        # General arguments
+        argument_parser.add_argument('--sample-name', type=str, help='Dataset name (will be determined from the input if not specified)')
+        argument_parser.add_argument('--output-dir', required=True, type=Path, help='Output directory')
+        argument_parser.add_argument('--output-html', type=Path, help='Output HTML report')
+        argument_parser.add_argument('--working-dir', default=Path.cwd(), type=Path, help='Working directory for temporary files')
+        argument_parser.add_argument('--threads', default=8, type=int, help='Number of threads to use')
 
-        # SRST2 specific parameters
-        argument_parser.add_argument('--srst2-min-cov', type=int, default=90)
-        argument_parser.add_argument('--srst2-max-div', type=int, default=10)
-        argument_parser.add_argument('--srst2-max-unaligned-overlap', type=int, default=100)
-        argument_parser.add_argument('--srst2-max-mismatch', type=int, default=10)
+        # Input files
+        argument_parser.add_argument('--fasta', help='Input FASTA file', type=Path, required=True)
+        argument_parser.add_argument('--fasta-name', help='Input FASTA file name', type=str)
+        argument_parser.add_argument('--database-dir', type=Path, required=True, help='Input database directory')
 
-        # KMA specific parameters
-        argument_parser.add_argument('--kma-min-percent-identity', type=int, default=90)
-        argument_parser.add_argument('--kma-min-percent-coverage', type=int, default=60)
+        # BLAST-specific parameters
+        argument_parser.add_argument('--blast-min-percent-identity', type=int, default=90, help='Minimum percent identity')
+        argument_parser.add_argument('--blast-min-percent-coverage', type=int, default=60, help='Minimum percent target coverage')
+        argument_parser.add_argument('--blast-task', type=str, choices=['blastn', 'megablast'], default='megablast', help="Value of the blast '-task' parameter")
+
+        # Version
+        argument_parser.add_argument(
+            '--version', help='Print version and exit', action='version', version=f'Gene detection {__version__}')
         return argument_parser.parse_args(args)
 
     def run(self) -> None:
@@ -62,31 +89,31 @@ class MainGeneDetection(object):
         Runs the main script.
         :return: None
         """
-        # Initialize report
+        logging.info(f'Running gene detection on: {self._sample_name}')
+        self._check_dependencies()
+
+        # Symlink the input (if needed)
+        if self._args.fasta_name is not None:
+            path_symlink = Path(
+                self._args.working_dir, 'input', mainscriptutils.sanitize_input_name(self._sample_name, 'fasta'))
+            path_symlink.parent.mkdir(parents=True, exist_ok=True)
+            path_symlink.symlink_to(self._args.fasta)
+            self._args.fasta = path_symlink
+
+        # Initialize the report
+        if self._args.output_html is None:
+            self._args.output_html = self._args.output_dir / 'report.html'
         report = mainscriptutils.init_report(
-            self._args.output_html, self._args.output_dir, 'Gene detection report',
-            f'Gene detection {self._args.detection_method}')
+            self._args.output_html, self._args.output_dir, 'Gene detection report','Gene detection')
         report.add_html_object(mainscriptutils.generate_analysis_info_section(self._args))
         report.save()
 
         # Prepare wrapper
-        wrapper = GeneDetectionWrapper(self._helper.working_dir)
+        wrapper = GeneDetectionWrapper(self._args.working_dir)
         db_data = self.__get_db_metadata()
 
         # Run wrapper
-        if self._args.detection_method == 'blast':
-            fasta_input = self._helper.prepare_fasta_input(report, self._args)
-            # Save assembly if specified
-            if self._args.output_fasta is not None:
-                shutil.copyfile(str(fasta_input), self._args.output_fasta)
-            wrapper.run_workflow_blast(fasta_input, self._sample_name, db_data, self._args.threads)
-        elif self._args.detection_method == 'kma':
-            fastq_input = self._helper.prepare_fastq_input(report, self._args)
-            wrapper.run_workflow_kma(fastq_input, self._sample_name, db_data, self._args.threads)
-        elif self._args.detection_method == 'srst2':
-            fastq_input = self._helper.prepare_fastq_input(report, self._args)
-            wrapper.run_workflow_srst2(
-                fastq_input, self._sample_name, db_data, self._args.threads)
+        wrapper.run_workflow_blast(self._args.fasta, self._sample_name, db_data, self._args.threads)
 
         # Export all output
         self.__export_output(report, wrapper.output)
@@ -96,33 +123,14 @@ class MainGeneDetection(object):
         Returns the database information dictionary.
         :return: Database information dictionary
         """
-        config_data = {'path': self._args.database_dir}
+        config_data = {'path': str(self._args.database_dir)}
 
         # Add specific options
-        if self._args.detection_method == 'blast':
-            config_data.update({'params': {'blastn': {
-                'min_percent_identity': self._args.blast_min_percent_identity,
-                'min_coverage': self._args.blast_min_percent_coverage,
-                'task': self._args.blast_task
-            }}})
-        elif self._args.detection_method == 'srst2':
-            config_data.update({'params': {'srst2': {
-                'min_coverage': self._args.srst2_min_cov,
-                'max_divergence': self._args.srst2_max_div,
-                'max_unaligned_overlap': self._args.srst2_max_unaligned_overlap,
-                'max_mismatch': self._args.srst2_max_mismatch
-            }}})
-        elif self._args.detection_method == 'kma':
-            config_data.update({'params': {'kma': {
-                'min_percent_identity': self._args.kma_min_percent_identity,
-                'min_coverage': self._args.kma_min_percent_coverage,
-            }}})
-
-        # Add extra column
-        with (self._args.database_dir / 'db_metadata.txt').open() as handle:
-            db_metadata = json.load(handle)
-            if 'extra_column' in db_metadata:
-                config_data['metadata'] = db_metadata['extra_column']
+        config_data.update({'params': {'blastn': {
+            'min_percent_identity': self._args.blast_min_percent_identity,
+            'min_coverage': self._args.blast_min_percent_coverage,
+            'task': self._args.blast_task
+        }}})
         return config_data
 
     def __export_output(self, report: HtmlReport, output: GeneDetectionOutput) -> None:
@@ -132,9 +140,22 @@ class MainGeneDetection(object):
         :param output: Workflow output
         :return: None
         """
-        self._helper.logs['gene_detection'] = str(output.log_file)
-        self._helper.informs.append(output.informs)
-        self._helper.export_output_and_commands_section(report, output.report_section)
+        report.add_html_object(output.report_section)
+        output.report_section.copy_files(report.output_dir)
+
+        # Commands
+        section_commands = SnakePipelineUtils.create_commands_section(
+            [output.informs], self._args.working_dir)
+        report.add_html_object(section_commands)
+
+        # Citations
+        section_citations = HtmlReportSection('Citations')
+        section_citations.add_header('Tools and databases', 3)
+        for citation_key in ['Bogaerts_2019-neisseria_validation', 'Camacho_2009-blast']:
+            section_citations.add_html_object(HtmlCitation.parse_from_json(citation_key))
+        report.add_html_object(section_citations)
+        report.save()
+        logging.info(f'Report saved to: {self._args.output_html}')
 
 
 if __name__ == '__main__':

@@ -1,10 +1,10 @@
 
 from camel.app.error.toolexecutionerror import ToolExecutionError
 from camel.app.io.tooliofile import ToolIOFile
-from camel.app.tools.tool import Tool
+from camel.app.tools.blast.blast import Blast
 
 
-class BlastFormatter(Tool):
+class BlastFormatter(Blast):
     """
     Formats BLAST output.
     """
@@ -13,7 +13,7 @@ class BlastFormatter(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('blast_formatter', '2.6.0')
+        super().__init__('blast_formatter')
 
     def _check_input(self) -> None:
         """
@@ -22,7 +22,7 @@ class BlastFormatter(Tool):
         """
         if 'ASN' not in self._tool_inputs:
             raise ValueError('No blast archive input found')
-        super(BlastFormatter, self)._check_input()
+        super()._check_input()
 
     def _execute_tool(self) -> None:
         """

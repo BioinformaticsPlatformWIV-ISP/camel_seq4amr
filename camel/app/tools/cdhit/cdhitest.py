@@ -6,6 +6,7 @@ import re
 
 from camel.app.io.tooliofile import ToolIOFile
 from camel.app.tools.tool import Tool
+from camel.app.utils.command import Command
 
 
 @dataclass
@@ -27,7 +28,7 @@ class CDHitEst(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('cd-hit-est', '4.6.8')
+        super().__init__('cd-hit-est')
 
     def _execute_tool(self) -> None:
         """
@@ -81,3 +82,12 @@ class CDHitEst(Tool):
         if not match:
             raise ValueError(f'Invalid cluster line: {line}')
         return match.group(1)
+
+    def get_version(self) -> str:
+        """
+        Returns the version of the tool.
+        :return: Tool version
+        """
+        command = Command(f'{self._tool_command} -h')
+        command.run(Path().cwd(), disable_logging=True)
+        return re.search(f'CD-HIT version (.*) \(built on', command.stdout).group(1).strip()

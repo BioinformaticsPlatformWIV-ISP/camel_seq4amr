@@ -1,6 +1,10 @@
+import re
+from pathlib import Path
+
 from camel.app.error.toolexecutionerror import ToolExecutionError
 from camel.app.io.tooliofile import ToolIOFile
 from camel.app.tools.tool import Tool
+from camel.app.utils.command import Command
 
 
 class Blast(Tool):
@@ -12,23 +16,13 @@ class Blast(Tool):
     - Subject (FASTA_Subject / DB_BLAST): Either a FASTA file or a BLAST database with the subject sequences
     """
 
-    def __init__(self, tool_name: str, version: str) -> None:
+    def __init__(self, tool_name: str) -> None:
         """
         Initializes this tool.
         :param tool_name: Tool name
-        :param version: Tool version
         """
-        super().__init__(tool_name, version)
+        super().__init__(tool_name)
         self.__subject_key = None
-
-    def _check_input(self) -> None:
-        """
-        Checks whether the required input files are specified.
-        :return: None
-        """
-        if 'FASTA' not in self._tool_inputs:
-            raise ValueError('No FASTA input found')
-        super(Blast, self)._check_input()
 
     def _execute_tool(self) -> None:
         """
@@ -132,3 +126,12 @@ class Blast(Tool):
         """
         if 'error' in self.stderr.lower() or self._command.returncode != 0:
             raise ToolExecutionError(f"Error executing {self.name}: {self._command.stderr.strip()}")
+
+    def get_version(self) -> str:
+        """
+        Returns the version of the tool.
+        :return: Tool version
+        """
+        command = Command(f'{self._tool_command} -version')
+        command.run(Path().cwd())
+        return re.search(f'blast[\w_]+: (.*)', command.stdout).group(1).strip()

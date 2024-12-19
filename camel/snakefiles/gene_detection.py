@@ -30,7 +30,7 @@ OUTPUT_GENE_DETECTION_REPORT_EMPTY = _dir_gene_detection / 'report' / 'html-empt
 OUTPUT_GENE_DETECTION_SUMMARY = _dir_gene_detection / 'report' / 'summary_out.tsv'
 
 
-def get_gene_detection_report(db_key: str, config: Dict[str, Any], analysis_name: Optional[str] = None) -> str:
+def get_gene_detection_report(db_key: str, config: Dict[str, Any], analysis_name: Optional[str] = None) -> Path:
     """
     Returns the report input for the given database key.
     :param db_key: Database key

@@ -34,7 +34,7 @@ class BlastHitFiltering(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('Gene Detection: Hit Filtering', '0.1')
+        super().__init__('Gene Detection: Hit Filtering')
 
     def _execute_tool(self) -> None:
         """
@@ -119,3 +119,10 @@ class BlastHitFiltering(Tool):
         """
         self._informs['Min. percent identity'] = f"{self._parameters['min_percent_identity'].value}%"
         self._informs['Min. coverage'] = f"{self._parameters['min_coverage'].value}%"
+
+    def get_version(self) -> str:
+        """
+        Retrieves the tool version.
+        :return: None
+        """
+        return '0.1'

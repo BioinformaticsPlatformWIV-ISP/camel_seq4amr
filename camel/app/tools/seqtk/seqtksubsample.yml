@@ -1,7 +1,0 @@
-dependencies: [seqtk/1.3]
-parameters:
-  combine_output: {default: false, mandatory: false, option: null, p_index: 0, value: 'true'}
-  fraction: {default: true, mandatory: true, option: null, p_index: 0, value: '0.1'}
-  output_prefix: {default: true, mandatory: true, option: null, p_index: 0, value: subsample}
-  seed: {default: true, mandatory: true, option: -s, p_index: 0, value: '11'}
-tool_command: seqtk sample

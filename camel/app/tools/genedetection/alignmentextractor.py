@@ -23,7 +23,7 @@ class AlignmentExtractor(Tool):
         """
         Initializes this tool.
         """
-        super().__init__('Gene Detection: Alignment Extractor', '0.1')
+        super().__init__('Gene Detection: Alignment Extractor')
 
     def _execute_tool(self) -> None:
         """
@@ -66,3 +66,10 @@ class AlignmentExtractor(Tool):
         with path_out.open('w') as output_handle:
             output_handle.write(alignment)
         return path_out
+
+    def get_version(self) -> str:
+        """
+        Retrieves the tool version.
+        :return: None
+        """
+        return '0.1'

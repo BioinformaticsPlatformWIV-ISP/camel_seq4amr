@@ -1,7 +1,0 @@
-dependencies: [java, fastqc/0.11.7]
-parameters:
-  extract: {default: true, mandatory: false, option: --extract, value: null}
-  quiet: {default: true, mandatory: false, option: --quiet, value: null}
-  threads: {default: true, mandatory: true, option: --threads, value: '2'}
-  no_group: {default: false, mandatory: false, option: --nogroup, value: null}
-tool_command: fastqc

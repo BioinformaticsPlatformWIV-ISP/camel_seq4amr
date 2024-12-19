@@ -1,4 +1,0 @@
-dependencies: []
-parameters:
-  output_filename: {default: true, mandatory: true, option: null, value: hits-srst2.tsv}
-tool_command: null
