@@ -9,11 +9,7 @@ from Bio import SeqIO
 
 from camel.app.io.tooliofile import ToolIOFile
 from camel.app.tools.blast.makeblastdb import MakeBlastDb
-from camel.app.tools.bowtie2.bowtie2index import Bowtie2Index
 from camel.app.tools.cdhit.cdhitest import CDHitEst, Cluster
-from camel.app.tools.kma.kma import KMA
-from camel.app.tools.samtools.samtoolsfastaindex import SamtoolsFastaIndex
-from camel.app.utils.command import Command
 
 
 class DBHelper(object):
@@ -64,30 +60,6 @@ class DBHelper(object):
         self._informs.append(cdhit.informs)
         return cdhit.informs['clusters']
 
-    def index_samtools_faidx(self, fasta_file: Path, working_dir: Path) -> None:
-        """
-        Indexes the given FASTA file with samtools faidx.
-        :param fasta_file: Input FASTA file
-        :param working_dir: Working directory
-        :return: None
-        """
-        samtools_faindex = SamtoolsFastaIndex()
-        samtools_faindex.add_input_files({'FASTA': [ToolIOFile(fasta_file)]})
-        samtools_faindex.run(working_dir)
-        self._informs.append(samtools_faindex.informs)
-
-    def index_bowtie2(self, fasta_file: Path, working_dir: Path) -> None:
-        """
-        Creates a bowtie2 index for the given FASTA file.
-        :param fasta_file: Input FASTA file
-        :param working_dir: Working directory
-        :return: None
-        """
-        bowtie2_index = Bowtie2Index()
-        bowtie2_index.add_input_files({'FASTA_REF': [ToolIOFile(fasta_file)]})
-        bowtie2_index.run(working_dir)
-        self._informs.append(bowtie2_index.informs)
-
     def index_blast(self, fasta_file: Path, working_dir: Path) -> None:
         """
         Indexes the given FASTA file with makeblastdb.
@@ -99,25 +71,6 @@ class DBHelper(object):
         makeblastdb.add_input_files({'FASTA': [ToolIOFile(fasta_file)]})
         makeblastdb.run(working_dir)
         self._informs.append(makeblastdb.informs)
-
-    def index_kma(self, fasta_file: Path, working_dir: Path) -> None:
-        """
-        Creates a KMA index.
-        :param fasta_file: FASTA file
-        :param working_dir: Working directory
-        :return: None
-        """
-        logging.info(f'Indexing - KMA: {fasta_file}')
-        kma = KMA()
-        path_out = fasta_file.parent / 'kma' / fasta_file.stem
-        if not path_out.parent.exists():
-            path_out.parent.mkdir(parents=True)
-        command = Command(
-            f"ml {' '.join(kma.dependencies)}; kma index -i {fasta_file} -o {path_out}")
-        command.run(working_dir)
-        if command.returncode != 0:
-            raise RuntimeError(f"Error KMA indexing: {command.stderr}")
-        self._informs.append({'_command': command.command, '_name': 'KMA', '_version': kma.version})
 
     def convert_fasta_headers_to_seq(self, input_file: Path, output_file: Path) -> Dict[str, str]:
         """
@@ -139,33 +92,6 @@ class DBHelper(object):
         with output_file.open('w') as handle_out:
             SeqIO.write(output_seqs, handle_out, 'fasta')
         return seq_ids
-
-    @staticmethod
-    def create_srst2_fasta(input_fasta: Path, output_fasta: Path, clusters: List[Cluster]) -> None:
-        """
-        Creates a FASTA file compatible with SRST2.
-        The format is: >[clusterUniqueIdentifier]__[clusterSymbol]__[alleleSymbol]__[alleleUniqueIdentifier]
-        :param input_fasta: FASTA containing the renamed sequences
-        :param output_fasta: Output FASTA file
-        :param clusters: Sequence clusters
-        :return: Path to generated FASTA file
-        """
-        seq_record_by_id = {}
-        with input_fasta.open() as handle_in:
-            for seq in SeqIO.parse(handle_in, 'fasta'):
-                seq_record_by_id[seq.id] = seq
-                seq.description = ''
-
-        output_seqs = []
-        for i, cluster in enumerate(clusters):
-            for sequence_name in cluster.seq_ids:
-                seq = seq_record_by_id[sequence_name]
-                full_name = seq.id
-                seq.id = '__'.join([str(i), cluster.name, full_name, full_name])
-                output_seqs.append(seq)
-
-        with output_fasta.open('w') as handle_out:
-            SeqIO.write(output_seqs, handle_out, 'fasta')
 
     def export_metadata(self, name: str, dir_output: Path) -> None:
         """
@@ -231,3 +157,30 @@ class DBHelper(object):
             seq_metadata[seq_id] = seq_data
         with (output_directory / 'mapping_full.json').open('w') as handle:
             json.dump(seq_metadata, handle, indent=2)
+
+    @staticmethod
+    def create_srst2_fasta(input_fasta: Path, output_fasta: Path, clusters: List[Cluster]) -> None:
+        """
+        Creates a FASTA file compatible with SRST2.
+        The format is: >[clusterUniqueIdentifier]__[clusterSymbol]__[alleleSymbol]__[alleleUniqueIdentifier]
+        :param input_fasta: FASTA containing the renamed sequences
+        :param output_fasta: Output FASTA file
+        :param clusters: Sequence clusters
+        :return: Path to generated FASTA file
+        """
+        seq_record_by_id = {}
+        with input_fasta.open() as handle_in:
+            for seq in SeqIO.parse(handle_in, 'fasta'):
+                seq_record_by_id[seq.id] = seq
+                seq.description = ''
+
+        output_seqs = []
+        for i, cluster in enumerate(clusters):
+            for sequence_name in cluster.seq_ids:
+                seq = seq_record_by_id[sequence_name]
+                full_name = seq.id
+                seq.id = '__'.join([str(i), cluster.name, full_name, full_name])
+                output_seqs.append(seq)
+
+        with output_fasta.open('w') as handle_out:
+            SeqIO.write(output_seqs, handle_out, 'fasta')
