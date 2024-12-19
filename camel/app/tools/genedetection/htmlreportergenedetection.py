@@ -20,7 +20,7 @@ class HtmlReporterGeneDetection(Tool):
         Initialize this tool.
         :return: None
         """
-        super().__init__('Gene Detection: Report', '0.1')
+        super().__init__('Gene Detection: Report')
         self._sub_folder = None
         self._report_section = None
 
@@ -97,3 +97,10 @@ class HtmlReporterGeneDetection(Tool):
         """
         self._report_section.add_paragraph('Last updated: {}'.format(self._input_informs['db_info'].get(
             'last_updated', '{LAST_UPDATED}')))
+
+    def get_version(self) -> str:
+        """
+        Retrieves the tool version.
+        :return: None
+        """
+        return '0.1'

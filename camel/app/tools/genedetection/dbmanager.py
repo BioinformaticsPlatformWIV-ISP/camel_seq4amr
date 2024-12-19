@@ -34,7 +34,7 @@ class DBManager(Tool):
         Initialize this tool.
         :return: None
         """
-        super().__init__('Gene Detection: DB Manager', '0.1')
+        super().__init__('Gene Detection: DB Manager')
 
     def _execute_tool(self) -> None:
         """
@@ -92,3 +92,10 @@ class DBManager(Tool):
                 self._tool_outputs['FASTA_clustered'] = [ToolIOFile(f)]
             elif f.name.endswith('.fasta'):
                 self._tool_outputs['FASTA'] = [ToolIOFile(f)]
+
+    def get_version(self) -> str:
+        """
+        Retrieves the tool version.
+        :return: None
+        """
+        return '0.1'
