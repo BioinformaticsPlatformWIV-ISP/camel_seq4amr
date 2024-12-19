@@ -1,6 +1,0 @@
-dependencies: []
-parameters:
-  per_base_sequence_content_skipped: {default: true, mandatory: true, option: null, value: '20'}
-  per_base_sequence_content_skipped_end: {default: true, mandatory: true, option: null, value: '5'}
-  qscore_drop_threshold: {default: true, mandatory: true, option: null, value: '30'}
-tool_command: null

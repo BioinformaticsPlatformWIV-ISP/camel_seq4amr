@@ -1,7 +1,0 @@
-dependencies: [fastx-toolkit/0.0.13]
-parameters:
-  min_percentage: {default: true, mandatory: true, option: -p, value: '20'}
-  min_quality: {default: true, mandatory: true, option: -q, value: '20'}
-  q33: {default: true, mandatory: false, option: -Q33, value: ''}
-  output_filename: {default: true, mandatory: true, option: '', value: fastx_filtered.fastq}
-tool_command: fastq_quality_filter

@@ -1,7 +1,0 @@
-dependencies: [seqtk/1.3]
-parameters:
-  output_filename: {default: true, mandatory: true, option: null, p_index: 0, value: 'sequences.fastq'}
-  min_length: {default: false, mandatory: false, option: '-L', p_index: 0, value: '100'}
-  mask_lower_qual: {default: false, mandatory: false, option: '-X', p_index: 0, value: '0'}
-  mask_higher_qual: {default: false, mandatory: false, option: '-q', p_index: 0, value: '255'}
-tool_command: seqtk seq
