@@ -8,8 +8,6 @@ from camel.snakefiles import gene_detection
 
 # Include workflows for the different detection methods
 include: gene_detection.SNAKEFILE_GENE_DETECTION_BLAST
-include: gene_detection.SNAKEFILE_GENE_DETECTION_KMA
-include: gene_detection.SNAKEFILE_GENE_DETECTION_SRST2
 
 # Common rules
 rule gene_detection_db_manager:
@@ -28,7 +26,7 @@ rule gene_detection_db_manager:
         from camel.app.tools.genedetection.dbmanager import DBManager
         db_manager = DBManager()
         db_manager.add_input_files({'DIR': [ToolIODirectory(Path(str(params.db_path)))]})
-        step = Step(str(rule), db_manager, Path(str(params.running_dir)), config, wildcards)
+        step = Step(str(rule), db_manager, Path(str(params.running_dir)))
         step.run_step()
         SnakemakeUtils.dump_tool_outputs(db_manager, output)
 
@@ -63,7 +61,7 @@ rule gene_detection_map_names:
         HITS = rules.gene_detection_get_hits.output.VAL_hits
     output:
         HITS = Path(config['working_dir']) / gene_detection.OUTPUT_GENE_DETECTION_ALL_HITS,
-        TSV = Path(config['working_dir']) / 'gene_detection' / '{db}' / 'metadata' / 'tsv.io',
+        TSV = Path(config['working_dir']) / 'gene_detection' / '{db}' / 'metadata' / 'tsv.io'
     params:
         dir_working = lambda wildcards: Path(config['working_dir']) / 'gene_detection' / wildcards.db / 'metadata',
         sample_name = config['sample_name'],
@@ -101,41 +99,6 @@ rule gene_detection_map_names:
         else:
             SnakemakeUtils.dump_object([], Path(output.TSV))
 
-rule gene_detection_get_column_names:
-    """
-    Retrieves the column names for the gene detection output.
-    This method is necessary in case output needs to be generated when no hits are detected.
-    """
-    output:
-        INFORMS_columns=Path(config['working_dir']) / gene_detection.OUTPUT_GENE_DETECTION_COLUMNS
-    params:
-        detection_method = lambda wildcards: GeneDetectionUtils.get_detection_method_key(config, wildcards.db),
-        db_config = lambda wildcards: config['gene_detection'][wildcards.db]
-    run:
-        from camel.app.components.blast.blasthitstatistics import BlastHitStatistics
-        from camel.app.components.genedetection.genedetectionblasthit import GeneDetectionBlastHit
-        from camel.app.components.genedetection.genedetectionsrst2hit import GeneDetectionSRST2Hit
-        from camel.app.components.genedetection.genedetectionkmahit import GeneDetectionKMAHit
-
-        # Create empty hit
-        if params.detection_method == 'blast':
-            empty_hit = GeneDetectionBlastHit('Locus', None, BlastHitStatistics('subject', 0, '', 'query', 0, 0, 0.0))
-        elif params.detection_method == 'srst2':
-            empty_hit = GeneDetectionSRST2Hit('DB_cluster', 'Locus', None, 0, '', '', 0.0, 0.0, 0.0)
-        elif params.detection_method == 'kma':
-            empty_hit = GeneDetectionKMAHit('DB_cluster', 'Locus', None, '', 0, 0, 0.0, 0.0, 0.0)
-        else:
-            raise ValueError(f"Invalid detection method: {params.detection_method}")
-
-        # Add metadata columns
-        if 'metadata' in params.db_config:
-            empty_hit.add_metadata(params.db_config['metadata']['name'], '')
-
-        # Save column names
-        columns = empty_hit.html_column_names
-        SnakemakeUtils.dump_object(columns, Path(output.INFORMS_columns))
-
-
 rule gene_detection_report:
     """
     Creates HTML reports for the gene detection.
@@ -144,17 +107,16 @@ rule gene_detection_report:
         VAL_Hits = rules.gene_detection_map_names.output.HITS,
         TSV = rules.gene_detection_map_names.output.TSV,
         INFORMS_db_info = rules.gene_detection_db_manager.output.INFORMS,
-        INFORMS_detection = rules.gene_detection_get_hits.output.INFORMS,
+        INFORMS_detection = rules.gene_detection_get_hits.output.INFORMS
     output:
-        VAL_HTML = Path(config['working_dir']) / gene_detection.OUTPUT_GENE_DETECTION_REPORT,
+        VAL_HTML = Path(config['working_dir']) / gene_detection.OUTPUT_GENE_DETECTION_REPORT
     params:
         running_dir = lambda wildcards: Path(config['working_dir']) / 'gene_detection' / wildcards.db / 'report',
-        config_data = lambda wildcards: config['gene_detection'][wildcards.db],
+        config_data = lambda wildcards: config['gene_detection'][wildcards.db]
     run:
-        from camel.app.io.tooliovalue import ToolIOValue
         from camel.app.tools.genedetection.htmlreportergenedetection import HtmlReporterGeneDetection
         reporter = HtmlReporterGeneDetection()
-        step = Step(str(rule), reporter, Path(str(params.running_dir)), wildcards)
+        step = Step(str(rule), reporter, Path(str(params.running_dir)))
         if 'force_detection_method' in params.config_data:
             reporter.update_parameters(forced_detection_method = params.config_data['force_detection_method'])
         SnakemakeUtils.add_pickle_inputs(reporter, input)
@@ -170,7 +132,7 @@ rule gene_detection_create_empty_report:
     output:
         VAL_HTML = Path(config['working_dir']) / gene_detection.OUTPUT_GENE_DETECTION_REPORT_EMPTY
     params:
-        running_dir = lambda wildcards: Path(config['working_dir']) / 'gene_detection' / wildcards.db / 'report',
+        running_dir = lambda wildcards: Path(config['working_dir']) / 'gene_detection' / wildcards.db / 'report'
     run:
         from camel.app.utils.report.htmlreportsection import HtmlReportSection
         from camel.app.io.tooliovalue import ToolIOValue
@@ -184,7 +146,7 @@ rule gene_detection_dump_summary_info:
     Dumps the summary information from the gene detection in tabular format.
     """
     input:
-        INFORMS_hits=Path(config['working_dir']) / 'gene_detection' / '{db}' / 'hit_selection' / 'selected-hits.io',
+        INFORMS_hits = Path(config['working_dir']) / 'gene_detection' / '{db}' / 'hit_selection' / 'selected-hits.io'
     output:
         TSV = Path(config['working_dir']) / gene_detection.OUTPUT_GENE_DETECTION_SUMMARY
     run:
